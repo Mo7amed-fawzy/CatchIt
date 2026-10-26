@@ -6,6 +6,8 @@ CatchIt هو تطبيق سطح مكتب لنظام Linux يسهّل تنزيل �
 
 [تنزيل أحدث إصدار](https://github.com/Mo7amed-fawzy/CatchIt/releases/latest)
 
+[الموقع الرسمي لـCatchIt](https://mo7amed-fawzy.github.io/CatchIt/)
+
 ## لماذا CatchIt؟
 
 - تنزيل فيديو واحد مجانًا بدون إنشاء حساب.
