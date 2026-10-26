@@ -1,26 +1,45 @@
 const repository = 'Mo7amed-fawzy/CatchIt';
 const archiveName = 'universal-downloader-linux-x64.tar.gz';
 const releasesUrl = `https://github.com/${repository}/releases`;
-const downloadLinks = [document.getElementById('download-button'), document.getElementById('install-download')];
+const downloadLinks = [
+  document.getElementById('header-download'),
+  document.getElementById('download-button'),
+  document.getElementById('install-download'),
+];
 const status = document.getElementById('release-status');
+
+function archiveFor(release) {
+  if (release.draft) return null;
+  const archive = release.assets?.find((asset) => asset.name === archiveName);
+  if (typeof archive?.browser_download_url !== 'string' ||
+      !archive.browser_download_url.startsWith(`${releasesUrl}/download/`)) return null;
+  return archive;
+}
 
 async function loadLatestRelease() {
   try {
-    const response = await fetch(`https://api.github.com/repos/${repository}/releases/latest`, {
-      headers: { Accept: 'application/vnd.github+json' },
-    });
-    if (!response.ok) throw new Error('Release unavailable');
-    const release = await response.json();
-    const archive = release.assets?.find((asset) => asset.name === archiveName);
-    if (!archive || release.draft || release.prerelease ||
-        !archive.browser_download_url.startsWith(`${releasesUrl}/download/`)) {
-      throw new Error('No production archive');
+    const headers = { Accept: 'application/vnd.github+json' };
+    const productionResponse = await fetch(`https://api.github.com/repos/${repository}/releases/latest`, { headers });
+    let release;
+    if (productionResponse.ok) {
+      const production = await productionResponse.json();
+      if (!production.prerelease && archiveFor(production)) release = production;
     }
+    if (!release) {
+      const previewResponse = await fetch(`https://api.github.com/repos/${repository}/releases?per_page=20`, { headers });
+      if (!previewResponse.ok) throw new Error('Releases unavailable');
+      const releases = await previewResponse.json();
+      release = releases.find((item) => !item.prerelease && archiveFor(item)) ??
+        releases.find((item) => item.prerelease && archiveFor(item));
+    }
+    if (!release) throw new Error('No downloadable archive');
+    const archive = archiveFor(release);
     for (const link of downloadLinks) link.href = archive.browser_download_url;
-    status.textContent = `أحدث إصدار إنتاج: ${release.tag_name} · Linux x86_64`;
+    const channel = release.prerelease ? 'نسخة تجريبية' : 'أحدث إصدار إنتاج';
+    status.textContent = `${channel}: ${release.tag_name} · Linux x86_64`;
+    if (release.prerelease) document.getElementById('header-download').title = 'تنزيل نسخة تجريبية';
   } catch {
-    for (const link of downloadLinks) link.href = releasesUrl;
-    status.textContent = 'تصفح الإصدارات المتاحة على GitHub.';
+    status.textContent = 'رابط التحميل غير متاح حاليًا. حاول تحديث الصفحة بعد قليل.';
   }
 }
 
