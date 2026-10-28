@@ -2,7 +2,7 @@
 
 **نزّل الفيديو الذي تريده بالجودة والصوت المناسبين لك — من مكان واحد.**
 
-CatchIt هو تطبيق سطح مكتب لنظام Linux يسهّل تنزيل فيديوهات YouTube مع اختيار جودة الفيديو، لغة الصوت، والترجمة المتاحة. يدمج التطبيق الفيديو والصوت محليًا ويحفظ الملف النهائي على جهازك.
+CatchIt تطبيق لتنزيل فيديوهات YouTube على Linux، مع نسخة تجريبية لنظام Android. يتيح اختيار جودة الفيديو، لغة الصوت، والترجمة المتاحة، ويدمج الفيديو والصوت محليًا.
 
 [تنزيل أحدث إصدار](https://github.com/Mo7amed-fawzy/CatchIt/releases/latest)
 
@@ -41,6 +41,10 @@ CatchIt هو تطبيق سطح مكتب لنظام Linux يسهّل تنزيل �
 
 يتطلب التطبيق Linux x86_64 بواجهة GTK 3. تم اختباره على Ubuntu 24.04. أدوات yt-dlp وFFmpeg وFFprobe وDeno مضمّنة، ولا يحتاج المستخدم إلى تثبيتها منفصلة.
 
+## التثبيت على Android
+
+نزّل `catchit-android-universal.apk` من [صفحة الموقع](https://mo7amed-fawzy.github.io/CatchIt/) وثبّته على جهاز يعمل بنظام Android 10 أو أحدث. الملف الواحد يضم ARM32 وARM64 وx86_64. هذه نسخة تجريبية؛ تحقق التنزيل الكامل على محاكي x86_64، وما زال اختبار ARM64 على هاتف فعلي مطلوبًا.
+
 ## تحديثات موثوقة
 
 يعرض CatchIt إشعارًا عند توفر إصدار أحدث. يتم تنزيل التحديث من هذا المستودع مباشرة، ثم يتحقق التطبيق من توقيعه الرقمي وحجمه وبصمة SHA-256 قبل عرضه للتثبيت. يظل الإصدار السابق محفوظًا كنسخة احتياطية أثناء التحديث.
@@ -51,7 +55,7 @@ CatchIt هو تطبيق سطح مكتب لنظام Linux يسهّل تنزيل �
 
 ## English
 
-CatchIt is a Linux desktop media downloader for YouTube. Choose the available video quality, preferred audio language, subtitles, or audio-only output. Single downloads are free without an account; CatchIt Pro unlocks multi-download mode and automatic downloads for one year.
+CatchIt is a Linux desktop media downloader for YouTube with an Android preview. Choose the available video quality, preferred audio language, subtitles, or audio-only output. Single downloads are free without an account; CatchIt Pro unlocks multi-download mode and automatic downloads for one year.
 
 [Download the latest release](https://github.com/Mo7amed-fawzy/CatchIt/releases/latest)
 
