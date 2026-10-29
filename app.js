@@ -2,6 +2,10 @@ const repository = 'Mo7amed-fawzy/CatchIt';
 const archiveName = 'universal-downloader-linux-x64.tar.gz';
 const androidArchiveName = 'catchit-android-universal.apk';
 const releasesUrl = `https://github.com/${repository}/releases`;
+const androidDownloadLinks = [
+  document.getElementById('android-hero-download'),
+  document.getElementById('android-download'),
+];
 const downloadLinks = [
   document.getElementById('header-download'),
   document.getElementById('download-button'),
@@ -47,7 +51,6 @@ async function loadLatestRelease() {
 loadLatestRelease();
 
 async function loadAndroidRelease() {
-  const androidLink = document.getElementById('android-download');
   const androidStatus = document.getElementById('android-release-status');
   try {
     const response = await fetch(`https://api.github.com/repos/${repository}/releases?per_page=20`, {
@@ -61,11 +64,11 @@ async function loadAndroidRelease() {
         asset.browser_download_url?.startsWith(`${releasesUrl}/download/`)));
     if (!release) throw new Error('Android release unavailable');
     const asset = release.assets.find((item) => item.name === androidArchiveName);
-    androidLink.href = asset.browser_download_url;
+    for (const link of androidDownloadLinks) link.href = asset.browser_download_url;
     androidStatus.textContent = `${release.prerelease ? 'نسخة تجريبية' : 'إصدار إنتاج'}: ${release.tag_name} · Android 10+`;
   } catch {
     androidStatus.textContent = 'تنزيل Android غير متاح حاليًا. حاول مرة أخرى لاحقًا.';
-    androidLink.removeAttribute('href');
+    for (const link of androidDownloadLinks) link.removeAttribute('href');
   }
 }
 

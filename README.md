@@ -8,6 +8,8 @@ CatchIt تطبيق لتنزيل فيديوهات YouTube على Linux، مع ن�
 
 [الموقع الرسمي لـCatchIt](https://mo7amed-fawzy.github.io/CatchIt/)
 
+الموقع مبني بملفات HTML وCSS وJavaScript ثابتة. أيقونتا Linux وAndroid في أزرار التنزيل من [Simple Icons](https://simpleicons.org/).
+
 ## لماذا CatchIt؟
 
 - تنزيل فيديو واحد مجانًا بدون إنشاء حساب.
