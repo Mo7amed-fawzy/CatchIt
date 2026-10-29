@@ -1,0 +1,35 @@
+name: Publish CatchIt Android preview
+
+on:
+  push:
+    branches: [android-upload]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Verify APK checksum
+        run: |
+          cat catchit-android-universal.apk.part.* > catchit-android-universal.apk
+          sha256sum -c catchit-android-universal.apk.sha256
+      - name: Publish APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view android-preview-v1.0.0+4 >/dev/null 2>&1; then
+            gh release upload android-preview-v1.0.0+4 catchit-android-universal.apk catchit-android-universal.apk.sha256 --clobber
+          else
+            gh release create android-preview-v1.0.0+4 \
+              catchit-android-universal.apk \
+              catchit-android-universal.apk.sha256 \
+              --target main \
+              --title "CatchIt Android 1.0.0 preview" \
+              --notes "Universal APK for Android 10+ (ARM32, ARM64, x86_64). Signed with the CatchIt Android release certificate. ARM64 device validation remains pending." \
+              --prerelease
+          fi
