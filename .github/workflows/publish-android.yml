@@ -22,14 +22,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view android-preview-v1.0.0+4 >/dev/null 2>&1; then
-            gh release upload android-preview-v1.0.0+4 catchit-android-universal.apk catchit-android-universal.apk.sha256 --clobber
+          if gh release view android-preview-v1.0.0+5 >/dev/null 2>&1; then
+            gh release upload android-preview-v1.0.0+5 catchit-android-universal.apk catchit-android-universal.apk.sha256 --clobber
           else
-            gh release create android-preview-v1.0.0+4 \
+            gh release create android-preview-v1.0.0+5 \
               catchit-android-universal.apk \
               catchit-android-universal.apk.sha256 \
               --target main \
-              --title "CatchIt Android 1.0.0 preview" \
-              --notes "Universal APK for Android 10+ (ARM32, ARM64, x86_64). Signed with the CatchIt Android release certificate. ARM64 device validation remains pending." \
+              --title "CatchIt Android 1.0.0+5 preview" \
+              --notes "Universal APK for Android 10+ (ARM32, ARM64, x86_64). Debug logging controls are hidden in release builds. Source is tracked in the private Universal-Downloader repository at commit a8ff316. ARM64 device validation remains pending." \
               --prerelease
           fi
