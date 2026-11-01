@@ -107,3 +107,58 @@ async function loadAndroidRelease() {
 }
 
 loadAndroidRelease();
+
+const demoCard = document.querySelector('.demo-card');
+const heroArt = document.querySelector('.hero-art');
+const mobileCardMedia = window.matchMedia('(max-width: 620px)');
+const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+let activePointerId = null;
+let startX = 0;
+let lastX = 0;
+let restoreTimer;
+
+function setDemoCardOffset(offset) {
+  demoCard.style.setProperty('--drag-x', `${offset}px`);
+}
+
+function resetDemoCard() {
+  activePointerId = null;
+  demoCard.classList.remove('is-pressed', 'is-dragging');
+  heroArt.classList.remove('is-card-focused');
+  setDemoCardOffset(0);
+}
+
+demoCard.addEventListener('pointerdown', (event) => {
+  if (!mobileCardMedia.matches || event.button !== 0 || activePointerId !== null) return;
+  window.clearTimeout(restoreTimer);
+  activePointerId = event.pointerId;
+  startX = event.clientX;
+  lastX = event.clientX;
+  demoCard.classList.add('is-pressed', 'is-dragging');
+  heroArt.classList.add('is-card-focused');
+  demoCard.setPointerCapture(event.pointerId);
+});
+
+demoCard.addEventListener('pointermove', (event) => {
+  if (event.pointerId !== activePointerId) return;
+  lastX = event.clientX;
+  setDemoCardOffset((lastX - startX) * 2.5);
+});
+
+demoCard.addEventListener('pointerup', (event) => {
+  if (event.pointerId !== activePointerId) return;
+  const distance = lastX - startX;
+  activePointerId = null;
+  demoCard.classList.remove('is-pressed', 'is-dragging');
+  heroArt.classList.remove('is-card-focused');
+  if (Math.abs(distance) < 55 || reducedMotionMedia.matches) {
+    setDemoCardOffset(0);
+    return;
+  }
+  setDemoCardOffset(Math.sign(distance) * (window.innerWidth + demoCard.offsetWidth));
+  restoreTimer = window.setTimeout(() => setDemoCardOffset(0), 320);
+});
+
+demoCard.addEventListener('pointercancel', (event) => {
+  if (event.pointerId === activePointerId) resetDemoCard();
+});
