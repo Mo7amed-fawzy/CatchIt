@@ -8,6 +8,7 @@
 .android-download{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:54px;padding:30px;border:1px solid #494351;border-radius:22px;background:#211e29}.android-download h3{font-size:24px;margin:8px 0}.android-download p{max-width:620px;color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:0}.android-download .button{white-space:nowrap}.android-download .release-status{margin-top:12px}#android-download:not([href]){opacity:.55;pointer-events:none}@media(max-width:620px){.android-download{align-items:stretch;flex-direction:column;padding:22px}.android-download .button{white-space:normal}}
 .platform-icon{display:block;flex:none;object-fit:contain;filter:brightness(0) invert(1)}.header-cta{display:inline-flex;align-items:center;gap:10px}.hero-actions .text-link{padding-inline:6px}.hero-actions #android-hero-download:not([href]),.hero-actions #windows-hero-download:not([href]){opacity:.55;pointer-events:none}@media(max-width:620px){.hero-actions .button{flex:1 1 100%}.hero-actions .text-link{padding:8px 0}}
 .platform-download{margin-top:42px}#windows-download:not([href]){opacity:.55;pointer-events:none}
+.section-nav{margin-top:32px}.section-nav .text-link{display:inline-flex;align-items:center;gap:8px;padding:8px 0}
 
 @media(max-width:900px){
   .hero-art{height:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
