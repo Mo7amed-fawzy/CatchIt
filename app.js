@@ -1,7 +1,13 @@
 const repository = 'Mo7amed-fawzy/CatchIt';
 const archiveName = 'universal-downloader-linux-x64.tar.gz';
 const androidArchiveName = 'catchit-android-universal.apk';
+const windowsArchiveName = 'universal-downloader-windows-x64.zip';
+const windowsManifestName = 'catchit-update-windows-x64.json';
 const releasesUrl = `https://github.com/${repository}/releases`;
+const windowsDownloadLinks = [
+  document.getElementById('windows-hero-download'),
+  document.getElementById('windows-download'),
+];
 const androidDownloadLinks = [
   document.getElementById('android-hero-download'),
   document.getElementById('android-download'),
@@ -49,6 +55,34 @@ async function loadLatestRelease() {
 }
 
 loadLatestRelease();
+
+async function loadWindowsRelease() {
+  const windowsStatus = document.getElementById('windows-release-status');
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repository}/releases?per_page=20`, {
+      headers: { Accept: 'application/vnd.github+json' },
+    });
+    if (!response.ok) throw new Error('Releases unavailable');
+    const releases = await response.json();
+    const release = releases.find((item) =>
+      !item.draft && !item.prerelease &&
+      item.assets?.some((asset) =>
+        asset.name === windowsManifestName &&
+        asset.browser_download_url?.startsWith(`${releasesUrl}/download/`)) &&
+      item.assets?.some((asset) =>
+        asset.name === windowsArchiveName &&
+        asset.browser_download_url?.startsWith(`${releasesUrl}/download/`)));
+    if (!release) throw new Error('Windows release unavailable');
+    const archive = release.assets.find((asset) => asset.name === windowsArchiveName);
+    for (const link of windowsDownloadLinks) link.href = archive.browser_download_url;
+    windowsStatus.textContent = `إصدار إنتاج: ${release.tag_name} · Windows x64`;
+  } catch {
+    windowsStatus.textContent = 'تنزيل Windows غير متاح حاليًا. حاول مرة أخرى لاحقًا.';
+    for (const link of windowsDownloadLinks) link.removeAttribute('href');
+  }
+}
+
+loadWindowsRelease();
 
 async function loadAndroidRelease() {
   const androidStatus = document.getElementById('android-release-status');
