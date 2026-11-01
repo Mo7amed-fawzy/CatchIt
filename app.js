@@ -46,11 +46,11 @@ async function loadLatestRelease() {
     if (!release) throw new Error('No downloadable archive');
     const archive = archiveFor(release);
     for (const link of downloadLinks) link.href = archive.browser_download_url;
-    const channel = release.prerelease ? 'نسخة تجريبية' : 'أحدث إصدار إنتاج';
+    const channel = release.prerelease ? 'نسخة تجريبية' : 'آخر إصدار رسمي';
     status.textContent = `${channel}: ${release.tag_name} · Linux x86_64`;
-    if (release.prerelease) document.getElementById('header-download').title = 'تنزيل نسخة تجريبية';
+    if (release.prerelease) document.getElementById('header-download').title = 'نزّل النسخة التجريبية';
   } catch {
-    status.textContent = 'رابط التحميل غير متاح حاليًا. حاول تحديث الصفحة بعد قليل.';
+    status.textContent = 'لينك التحميل مش متاح دلوقتي. جرّب تحدّث الصفحة كمان شوية.';
   }
 }
 
@@ -75,9 +75,9 @@ async function loadWindowsRelease() {
     if (!release) throw new Error('Windows release unavailable');
     const archive = release.assets.find((asset) => asset.name === windowsArchiveName);
     for (const link of windowsDownloadLinks) link.href = archive.browser_download_url;
-    windowsStatus.textContent = `إصدار إنتاج: ${release.tag_name} · Windows x64`;
+    windowsStatus.textContent = `آخر إصدار رسمي: ${release.tag_name} · Windows x64`;
   } catch {
-    windowsStatus.textContent = 'تنزيل Windows غير متاح حاليًا. حاول مرة أخرى لاحقًا.';
+    windowsStatus.textContent = 'تحميل Windows مش متاح دلوقتي. جرّب تاني بعد شوية.';
     for (const link of windowsDownloadLinks) link.removeAttribute('href');
   }
 }
@@ -99,9 +99,9 @@ async function loadAndroidRelease() {
     if (!release) throw new Error('Android release unavailable');
     const asset = release.assets.find((item) => item.name === androidArchiveName);
     for (const link of androidDownloadLinks) link.href = asset.browser_download_url;
-    androidStatus.textContent = `${release.prerelease ? 'نسخة تجريبية' : 'إصدار إنتاج'}: ${release.tag_name} · Android 10+`;
+    androidStatus.textContent = `${release.prerelease ? 'نسخة تجريبية' : 'آخر إصدار رسمي'}: ${release.tag_name} · Android 10+`;
   } catch {
-    androidStatus.textContent = 'تنزيل Android غير متاح حاليًا. حاول مرة أخرى لاحقًا.';
+    androidStatus.textContent = 'تحميل Android مش متاح دلوقتي. جرّب تاني بعد شوية.';
     for (const link of androidDownloadLinks) link.removeAttribute('href');
   }
 }
