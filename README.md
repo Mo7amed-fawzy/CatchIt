@@ -21,10 +21,11 @@ The desktop archives include the download and media tools needed for normal use.
 - Download audio only as MP3, M4A, or FLAC.
 - Track progress, cancel a download, and retry it.
 - Merge video and audio locally without re-encoding when the selected streams allow it.
+- On Android, remove music while keeping speech and effects. The local audio model downloads on first use.
 
 ## Free and Pro
 
-Free lets you download one video at a time without creating an account. CatchIt Pro adds multiple downloads and can start downloads automatically after link information is fetched. Pro is activated for one year with a code tied to your installation. To request a code, contact the person or team that supplied CatchIt and share the Installation ID shown in Settings.
+Free lets you download one video at a time without creating an account. Android music removal uses the same method in Free and Pro. CatchIt Pro adds multiple downloads and can start downloads automatically after link information is fetched. Pro is activated for one year with a code tied to your installation. To request a code, contact the person or team that supplied CatchIt and share the Installation ID shown in Settings.
 
 ## Updates and privacy
 
