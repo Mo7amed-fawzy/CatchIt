@@ -1,4 +1,4 @@
-name: Publish CatchIt Android preview
+name: Publish CatchIt Android release
 
 on:
   push:
@@ -22,14 +22,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view android-preview-v1.0.0+5 >/dev/null 2>&1; then
-            gh release upload android-preview-v1.0.0+5 catchit-android-universal.apk catchit-android-universal.apk.sha256 --clobber
+          if gh release view android-v1.0.0+7 >/dev/null 2>&1; then
+            gh release upload android-v1.0.0+7 catchit-android-universal.apk catchit-android-universal.apk.sha256 --clobber
           else
-            gh release create android-preview-v1.0.0+5 \
+            gh release create android-v1.0.0+7 \
               catchit-android-universal.apk \
               catchit-android-universal.apk.sha256 \
               --target main \
-              --title "CatchIt Android 1.0.0+5 preview" \
-              --notes "Universal APK for Android 10+ (ARM32, ARM64, x86_64). Debug logging controls are hidden in release builds. Source is tracked in the private Universal-Downloader repository at commit a8ff316. ARM64 device validation remains pending." \
-              --prerelease
+              --title "CatchIt Android 1.0.0+7" \
+              --notes "One universal APK for Android 10+ (ARM32, ARM64, x86_64). Local music separation uses the same method in Free and Pro; the 31 MB model downloads on first use. The 44-second YouTube test passed on an x86_64 Android emulator. ARM device validation remains pending. Source is tracked in the private Universal-Downloader repository at commit 95ebb3b." \
+              --latest=false
           fi
